@@ -117,4 +117,26 @@ mod tests {
         assert!(!is_valid, "Signature is invalid when the message changes");
     }
 
+    #[test]
+    fn test_keypair_json_serialize_deserialize() {
+        // Generate original keypair
+        let original = Keypair::generate();
+        let priv_before = original.private_key.clone();
+        let pub_before = original.public_key.clone();
+
+        // Serialize to JSON 
+        let json = original.to_json().expect("serialize failed");
+
+        // Expect numeric arrays in the JSON representation for Vec<u8>:
+        assert!(json.contains("["), "JSON output should contain raw array brackets for Vec<u8>");
+
+        // Deserialize
+        let decoded = Keypair::from_json(&json).expect("deserialize failed");
+
+
+        // Validate round-trip integrity
+        assert_eq!(decoded.private_key, priv_before, "private key round-trip mismatch");
+        assert_eq!(decoded.public_key, pub_before, "public key round-trip mismatch");
+    }
+
 }
