@@ -41,8 +41,7 @@ impl Signer for Keypair {
         // Create a new SHA-256 hasher
         let mut hasher = Sha256::new();
 
-        /// Concatenate the msg and private_key by updating the hasher sequentially
-        /// SHA-256(msg + private_key)
+        // Concatenate the msg and private_key by updating the hasher sequentially: SHA-256(msg + private_key)
         hasher.update(msg);
         hasher.update(&self.private_key);
  
@@ -59,4 +58,50 @@ impl Signer for Keypair {
         // Equality check
         computed_sig == sig
     }
+}
+
+// Unit tests 
+#[cfg(test)]
+mod tests {
+    // Import everything from the parent module 
+    use super::*;
+
+    #[test]
+    fn test_sign_verify_success() {
+        // Generate a keypair
+        let keypair = Keypair::generate(); 
+        
+        // Define a message
+        let msg = b"Sahbaaz is developing a mini key signer";
+
+        // Sign the message
+        let signature = keypair.sign(msg);
+
+        // Verify the signature
+        let is_valid = keypair.verify(msg, &signature);
+
+        // Assert that the verification was successful
+        assert!(is_valid, "Signature should be valid");
+    }
+
+    #[test]
+    fn test_sign_verify_fail_msg_changed() {
+        // Generate a keypair
+        let keypair = Keypair::generate();
+
+        // Original message
+        let msg_original = b"Sahbaaz is developing a toy key signer";
+        // Tampered message
+        let msg_tampered = b"Sahbaaz is not developing a toy key signer";
+
+        // Sign the original message
+        let signature  = keypair.sign(msg_original);
+
+        // Verify the tampered message
+        let is_valid = keypair.verify(msg_tampered, &signature);
+
+        // Assert that the signature is not valid 
+        assert!(!is_valid, "Signature is invalid when the message changes");
+    }
+
 }
