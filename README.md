@@ -11,9 +11,9 @@
 
 | File | Purpose |
 |------|--------|
-| `src/lib.rs` | Core `Keypair` + `Signer` trait + JSON + tests |
+| `src/lib.rs` | Core `Keypair` + `Signer` trait + tests |
 | `src/main.rs` | CLI that generates keypair & signs a message |
-| Cargo.toml | Dependencies & project config |
+| Cargo.toml | Dependencies |
 ---
 
 ## Build, Test &  Run
