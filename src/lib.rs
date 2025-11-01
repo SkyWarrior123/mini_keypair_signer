@@ -5,10 +5,9 @@ use serde::{Serialize, Deserialize};
 
 
 // Define the Keypair structure
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Keypair {
-    #[serde(with = "hex")] 
     pub private_key: Vec<u8>,
-    #[serde(with = "hex")] 
     pub public_key: Vec<u8>,
 }
 
@@ -29,6 +28,16 @@ impl Keypair {
             private_key: private_key_bytes.to_vec(),
             public_key: public_key_bytes.to_vec(),
         }
+    }
+
+    // Exports the keypair to a pretty JSON string.
+    pub fn to_json(&self) -> Result<String, serde_json::Error> {
+        serde_json::to_string_pretty(self)
+    }
+
+    // Imports a keypair from a JSON string.
+    pub fn from_json(json: &str) -> Result<Self, serde_json::Error> {
+        serde_json::from_str(json)
     }
 }
 
