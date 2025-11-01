@@ -1,10 +1,14 @@
 // Use statements
 use rand::Rng;
 use sha2::{Sha256, Digest};
+use serde::{Serialize, Deserialize};
+
 
 // Define the Keypair structure
 pub struct Keypair {
+    #[serde(with = "hex")] 
     pub private_key: Vec<u8>,
+    #[serde(with = "hex")] 
     pub public_key: Vec<u8>,
 }
 
