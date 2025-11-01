@@ -1,8 +1,8 @@
 # mini_keypair_signer
 
-A minimal Rust keypair signer module.
-\n Generates random keypairs, signs messages, and verifies signatures.
-\n [Mini Keypair Signer – Assignment Details](https://flax-shade-aac.notion.site/Mini-Keypair-Signer-29dfcf88cb80805387b4ddcd1ac8f8f7)
+- A minimal Rust keypair signer module.
+-  Generates random keypairs, signs messages, and verifies signatures.
+-  [Mini Keypair Signer – Assignment Details](https://flax-shade-aac.notion.site/Mini-Keypair-Signer-29dfcf88cb80805387b4ddcd1ac8f8f7)
 
 
 ---
